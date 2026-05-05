@@ -1,14 +1,4 @@
-<!--<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    
-</body>
-</html>-->
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -17,6 +7,7 @@
         body {
             font-family: Arial, sans-serif;
             margin: 50px;
+            background-color: "cyan";
         }
         .error {
             color: red;
@@ -43,8 +34,8 @@
     <?php
    
     // variables
-    $name = $age = $email = $password = $phone = $NIDnum = $gender = $nationality = $regligion = "";
-    $nameErr = $ageErr = $emailErr = $passwordErr = $phoneErr = $NIDErr = $genderErr = $nationalityErr = $regligionErr = "";
+    $name = $age = $email = $password = $phone = $NIDnum = $gender = $nationality = $regligion = $Uname = $cpasswordErr ="";
+    $nameErr = $ageErr = $emailErr = $passwordErr = $phoneErr = $NIDErr = $genderErr = $nationalityErr = $regligionErr = $UnameErr = $cpasswordErr ="";
     $success = "";
  
     if ($_SERVER["REQUEST_METHOD"] == "POST")
@@ -94,24 +85,9 @@
             }
         }
  
-        // phone
-        if (empty($_POST["phone"])) {
-            $phoneErr = "Phone number is required";
-        } else {
-            $phone = test_input($_POST["phone"]);
-            if (!preg_match("/^[0-9]{11}$/", $phone)) {
-                $phoneErr = "Phone number must be exactly 11 digits";
-            }
-        }
+   
 
-         if (empty($_POST["nationality"])) {
-            $nameErr = "Nationality is required";
-        } else {
-            $name = test_input($_POST["nationality"]);
-            if (!preg_match("/^[a-zA-Z-' ]*$/", $nationality)) {
-                $nationalityErr = "Only letters and white space allowed";
-            }
-        }
+    
 
          if (empty($_POST["gender"])) {
             $nameErr = "gender is required";
@@ -123,14 +99,6 @@
         }
 
 
-        if (empty($_POST["nid"])) {
-            $NIDnum = "NID number is required";
-        } else {
-            $phone = test_input($_POST["nid"]);
-            if (!preg_match("/^[0-9]{11}$/", $NIDnum)) {
-                $NIDErr = "Phone number must be exactly 11 digits";
-            }
-        }
  
      
         if (empty($nameErr) && empty($ageErr) && empty($emailErr) && empty($passwordErr) && empty($phoneErr)) {
@@ -150,9 +118,13 @@
  
     <form method="post" action="<?php echo $_SERVER["PHP_SELF"]; ?>">
  
-        <label>Name:</label><br>
+        <label>Full Name:</label><br>
         <input type="text" name="name" value="<?php echo $name; ?>" >
         <span class="error">* <?php echo $nameErr; ?></span><br><br>
+
+        <label>User Name:</label><br> <!-- modfied -->
+        <input type="text" name="Uname" value="<?php echo $Uname; ?>" >
+        <span class="error">* <?php echo $UnameErr; ?></span><br><br>
  
         <label>Age:</label><br>
         <input type="number" name="age" value="<?php echo $age; ?>" min="10" max="100" >
@@ -165,24 +137,15 @@
         <label>Password:</label><br>
         <input type="password" name="password" >
         <span class="error">* <?php echo $passwordErr; ?></span><br><br>
+
+        <label>Confirm Password:</label><br> <!-- modfied -->
+        <input type="cpassword" name="cpassword" >
+        <span class="error">* <?php echo $cpasswordErr; ?></span><br><br>
  
-        <label>Phone Number (11 digits):</label><br>
-        <input type="text" name="phone" maxlength="11" value="<?php echo $phone; ?>" >
-        <span class="error">* <?php echo $phoneErr; ?></span><br><br>
-
-
-         <label>Nationality:</label><br>
-        <input type="text" name="nationality" value="<?php echo $nationality; ?>" >
-        <span class="error">* <?php echo $nationalityErr; ?></span><br><br>
-
         <label>Gender:</label><br>
         <input type="text" name="gender" value="<?php echo $gender; ?>" >
         <span class="error">* <?php echo $genderErr; ?></span><br><br>
 
-        <label>NID Number (13 digits):</label><br>
-        <input type="text" name="nid" maxlength="13" value="<?php echo $NIDnum; ?>" >
-        <span class="error">* <?php echo $NIDErr; ?></span><br><br>
- 
         <input type="submit" value="Submit" style="padding: 12px 25px; font-size: 16px;">
     </form>
  
